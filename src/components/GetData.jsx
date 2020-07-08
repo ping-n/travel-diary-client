@@ -1,4 +1,5 @@
 import React from "react";
+const API_KEY = process.env.REACT_APP_ZOMATO_API_KEY;
 
 class GetData extends React.Component {
   async componentDidMount() {
@@ -6,7 +7,7 @@ class GetData extends React.Component {
       "https://developers.zomato.com/api/v2.1/location_details?entity_id=259&entity_type=city",
       {
         headers: {
-          "user-key": "f2ea61b02be1143e24989f9ee88b44d4",
+          "user-key": API_KEY,
         },
       }
     );
