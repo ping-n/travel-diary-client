@@ -6,7 +6,7 @@ class GetData extends React.Component {
   state = { data: [] };
   async componentDidMount() {
     const response = await axios.get(
-      "https://developers.zomato.com/api/v2.1/location_details?entity_id=259&entity_type=city",
+      `https://developers.zomato.com/api/v2.1/location_details?entity_id=259&entity_type=city`,
       {
         headers: {
           "user-key": API_KEY,
