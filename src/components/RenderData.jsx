@@ -1,49 +1,57 @@
 import React from "react";
+import { Grid, Card, Image, Icon } from "semantic-ui-react";
+import Loading from "../shared/Loading";
 
 class RenderData extends React.Component {
   state = {
     data: false,
   };
 
-  constructor(props) {
-    super(props);
-    console.log("renderData props: ", this.props);
-  }
-
   componentDidMount() {
-    this.setState({data: this.props.data})
+    this.setState({ data: this.props.data });
   }
 
   render() {
-    console.log(`render function - props: `, this.props)
-    
     let data = false;
     if (this.props.data !== false) {
-      data  = this.props.data
-    } else (
-      data = false
-    )
-  
+      data = this.props.data;
+    } else data = false;
+
     return data ? (
-      <div className="">
-        {data.map((restaurant, index) => {
-          return (
-            <div key={index} className="restaurant">
-              <img src={restaurant.restaurant.thumb} alt=""/>
-              <h2>{restaurant.restaurant.name}</h2>
-              <h3>{restaurant.restaurant.location.address}</h3>
-            </div>
-          );
-        })}
-      </div>
+      <Grid>
+        <Grid.Row columns={5}>
+          {data.map((restaurant, index) => {
+            return (
+              <Grid.Column>
+                <Card key={index}>
+                  <Image src={restaurant.restaurant.thumb} wrapped ui={false} />
+                  <Card.Content>
+                    <Card.Header>
+                      Name: {restaurant.restaurant.name}
+                    </Card.Header>
+                  </Card.Content>
+                  <Card.Meta>{restaurant.restaurant.cuisines}</Card.Meta>
+                  <Card.Description>
+                    <p>
+                      Address: {restaurant.restaurant.location.address},{" "}
+                      {restaurant.restaurant.location.zipcode}
+                    </p>
+                    <p>Phone: {restaurant.restaurant.phone_numbers}</p>
+                  </Card.Description>
+                  <Card.Content extra>
+                    <Icon name="star" />
+                    {restaurant.restaurant.user_rating.aggregate_rating}
+                  </Card.Content>
+                </Card>
+              </Grid.Column>
+            );
+          })}
+        </Grid.Row>
+      </Grid>
     ) : (
-      <div>
-        <h1>Loading....</h1>
-      </div>
+      <Loading />
     );
   }
 }
 
 export default RenderData;
-
-
