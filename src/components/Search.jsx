@@ -10,6 +10,7 @@ class Search extends React.Component {
     entity_type: false,
     entity_id: false,
     city_name: false,
+    runComponentGetData: false,
   };
 
   onInputChange = (event) => {
@@ -55,29 +56,18 @@ class Search extends React.Component {
           entity_id: entity_id,
           entity_type: entity_type,
         });
-        console.log(this.state);
+        console.log("try: ", this.state);
+        this.setState({ runComponentGetData: true });
       } catch (error) {
         console.log("location not found");
       }
-      //   if (response.data.location_suggestions.length > 0) {
-      //     const {
-      //       entity_type,
-      //       entity_id,
-      //       city_name,
-      //     } = response.data.location_suggestions[0];
-      //     this.setState({
-      //       city_name: city_name,
-      //       entity_id: entity_id,
-      //       entity_type: entity_type,
-      //     });
-      //     console.log(this.state);}
-      // }
     }
   }
 
   render() {
-    const { searchKey, ...data } = this.state;
-        return (
+    const { searchKey, runComponentGetData, ...data } = this.state;
+
+    return (
       <>
         <form onSubmit={this.onFormSubmit}>
           <input
@@ -87,9 +77,13 @@ class Search extends React.Component {
             placeholder="Enter city for best restaurants"
             onChange={this.onInputChange}
           />
-          <GetData data={data} />
-
         </form>
+        {runComponentGetData && (
+          <>
+            {console.log("search render - data: ", data)}
+            <GetData data={data} />
+          </>
+        )}
       </>
     );
   }

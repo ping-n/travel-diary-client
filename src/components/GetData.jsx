@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import RenderData from "./RenderData";
 const API_KEY = process.env.REACT_APP_ZOMATO_API_KEY;
 
 class GetData extends React.Component {
@@ -11,9 +12,8 @@ class GetData extends React.Component {
   };
 
   componentDidMount() {
-    console.log(this.props);
+    console.log("component did mount", this.props);
     if (this.props.data.entity_id !== false) {
-      console.log(this.state)
       this.setState({
         entity_id: this.props.data.entity_id,
         entity_type: this.props.data.entity_type,
@@ -22,8 +22,16 @@ class GetData extends React.Component {
     }
   }
 
-  async componentDidUpdate() {
-    console.log("update")
+  async componentDidUpdate(prevProps) {
+    console.log(prevProps, this.props)
+    if (prevProps.data['city_name'] !== this.props.data['city_name']) {
+      this.setState({
+        entity_id: this.props.data.entity_id,
+        entity_type: this.props.data.entity_type,
+        request: true,
+      });
+    }
+    console.log("GetData componentDidUpdate", this.props);
     if (this.state.request) {
       console.log("axios request via GetData");
       const { entity_id, entity_type } = this.state;
@@ -37,12 +45,18 @@ class GetData extends React.Component {
       );
       const data = response.data;
       console.log(data);
-      this.setState({ data: data, request: false  });
+      console.log(data.best_rated_restaurant);
+      this.setState({ data: data, request: false });
     }
   }
 
   render() {
-    return <h1>Hello</h1>;
+    const { data } = this.state;
+    return data.best_rated_restaurant ? (
+      <RenderData data={data.best_rated_restaurant} />
+    ) : (
+      <div></div>
+    );
   }
 }
 
