@@ -14,7 +14,7 @@ class SignUp extends React.Component {
     event.preventDefault();
     const { email, password } = this.state;
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/sign-up`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
