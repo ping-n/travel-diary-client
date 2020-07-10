@@ -12,6 +12,7 @@ class SearchData extends React.Component {
     entity_id: false,
     city_name: false,
     runComponentGetData: false,
+    noLocation: false
   };
 
   onInputChange = (event) => {
@@ -58,15 +59,16 @@ class SearchData extends React.Component {
           entity_type: entity_type,
         });
         console.log("try: ", this.state);
-        this.setState({ runComponentGetData: true });
+        this.setState({ runComponentGetData: true, noLocation: false });
       } catch (error) {
         console.log("location not found");
+        this.setState({ runComponentGetData: false, noLocation: true });
       }
     }
   }
 
   render() {
-    const { searchKey, runComponentGetData, ...data } = this.state;
+    const { searchKey, runComponentGetData, noLocation, ...data } = this.state;
 
     return (
       <>
@@ -85,6 +87,9 @@ class SearchData extends React.Component {
             {console.log("search render - data: ", data)}
             <GetData data={data} />
           </>
+        )}
+        {noLocation && (
+          <h1 className="danger-text">LOCATION DOESN'T EXIST, REMOVED FROM EARTH, PLEASE TRY AGAIN</h1>
         )}
       </>
     );
