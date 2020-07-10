@@ -1,11 +1,12 @@
 import React from "react";
-import Search from "./Search";
+import SearchData from "./SearchData";
+import { Header } from "semantic-ui-react";
 
 const Home = () => {
   return (
     <>
-      <h1>Welcome to our App</h1>
-      <Search />
+      <Header as="h1" textAlign="left" size="large">Welcome to our App</Header>
+      <SearchData />
     </>
   );
 };

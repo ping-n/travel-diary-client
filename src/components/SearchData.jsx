@@ -1,9 +1,10 @@
 import React from "react";
 import GetData from "./GetData";
 import axios from "axios";
+
 const API_KEY = process.env.REACT_APP_ZOMATO_API_KEY;
 
-class Search extends React.Component {
+class SearchData extends React.Component {
   state = {
     searchKey: "",
     request: false,
@@ -71,6 +72,7 @@ class Search extends React.Component {
       <>
         <form onSubmit={this.onFormSubmit}>
           <input
+            className="search"
             type="text"
             id="searchKey"
             value={searchKey}
@@ -89,4 +91,4 @@ class Search extends React.Component {
   }
 }
 
-export default Search;
+export default SearchData;

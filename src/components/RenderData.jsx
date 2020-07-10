@@ -27,7 +27,7 @@ class RenderData extends React.Component {
                   <Image src={restaurant.restaurant.thumb} wrapped ui={false} />
                   <Card.Content>
                     <Card.Header>
-                      Name: {restaurant.restaurant.name}
+                      {restaurant.restaurant.name}
                     </Card.Header>
                   </Card.Content>
                   <Card.Meta>{restaurant.restaurant.cuisines}</Card.Meta>
